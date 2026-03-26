@@ -7,12 +7,12 @@
 
 ## Why Tauri 2 over Electron
 
-| | Tauri 2 | Electron |
-|---|---|---|
-| Bundle size | ~5MB | ~150MB |
-| Memory | ~30MB | ~150MB+ |
-| Backend | Rust (safe, fast) | Node.js |
-| Security | Capability-based permissions | Chromium sandbox |
+|             | Tauri 2                      | Electron         |
+| ----------- | ---------------------------- | ---------------- |
+| Bundle size | ~5MB                         | ~150MB           |
+| Memory      | ~30MB                        | ~150MB+          |
+| Backend     | Rust (safe, fast)            | Node.js          |
+| Security    | Capability-based permissions | Chromium sandbox |
 
 ## Architecture
 
@@ -40,17 +40,17 @@ npm run tauri:dev     # starts desktop app with HMR
 
 ## Tech Stack
 
-| Layer | Technology | Version |
-|-------|-----------|---------|
-| Framework | Tauri | 2.10 |
-| Backend | Rust | 2024 edition |
-| Frontend | React | 19.2 |
-| Language | TypeScript | 6.0 strict |
-| Styling | Tailwind CSS | v4 |
-| State | Zustand + tauri-plugin-store | 5.0 |
-| Activity | sysinfo | 0.30 |
-| Testing | Vitest (frontend) + cargo test (Rust) | 4.1 |
-| Linting | Biome (TS) + clippy (Rust) | 2.3 |
+| Layer     | Technology                            | Version      |
+| --------- | ------------------------------------- | ------------ |
+| Framework | Tauri                                 | 2.10         |
+| Backend   | Rust                                  | 2024 edition |
+| Frontend  | React                                 | 19.2         |
+| Language  | TypeScript                            | 6.0 strict   |
+| Styling   | Tailwind CSS                          | v4           |
+| State     | Zustand + tauri-plugin-store          | 5.0          |
+| Activity  | sysinfo                               | 0.30         |
+| Testing   | Vitest (frontend) + cargo test (Rust) | 4.1          |
+| Linting   | Biome (TS) + clippy (Rust)            | 2.3          |
 
 ## Features
 
@@ -110,11 +110,11 @@ cargo clippy        # Rust linting
 
 ## Build Targets
 
-| Platform | Target | Output |
-|----------|--------|--------|
-| macOS ARM | aarch64-apple-darwin | .dmg + .app |
-| macOS Intel | x86_64-apple-darwin | .dmg + .app |
-| Windows | x86_64-pc-windows-msvc | .msi + .exe |
+| Platform    | Target                 | Output      |
+| ----------- | ---------------------- | ----------- |
+| macOS ARM   | aarch64-apple-darwin   | .dmg + .app |
+| macOS Intel | x86_64-apple-darwin    | .dmg + .app |
+| Windows     | x86_64-pc-windows-msvc | .msi + .exe |
 
 ```bash
 npm run tauri:build    # builds for current platform
@@ -123,6 +123,7 @@ npm run tauri:build    # builds for current platform
 ## CI/CD
 
 GitHub Actions matrix builds on push to `main`:
+
 - macOS ARM + Intel, Windows x64
 - Rust: clippy + fmt + test
 - TypeScript: lint + typecheck + test
