@@ -1,10 +1,12 @@
-import { useEffect } from 'react';
-import { useSettings } from './use-settings';
-import type { ThemeMode } from '../types';
+import { useEffect } from "react";
+import { useSettings } from "./use-settings";
+import type { ThemeMode } from "../types";
 
-function resolveTheme(mode: ThemeMode): 'light' | 'dark' {
-  if (mode !== 'system') return mode;
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+function resolveTheme(mode: ThemeMode): "light" | "dark" {
+  if (mode !== "system") return mode;
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
 }
 
 /**
@@ -18,19 +20,19 @@ export function useTheme() {
   useEffect(() => {
     const apply = () => {
       const resolved = resolveTheme(theme);
-      document.body.classList.toggle('dark', resolved === 'dark');
+      document.body.classList.toggle("dark", resolved === "dark");
     };
 
     apply();
 
-    if (theme !== 'system') return;
+    if (theme !== "system") return;
 
-    const mq = window.matchMedia('(prefers-color-scheme: dark)');
-    mq.addEventListener('change', apply);
-    return () => mq.removeEventListener('change', apply);
+    const mq = window.matchMedia("(prefers-color-scheme: dark)");
+    mq.addEventListener("change", apply);
+    return () => mq.removeEventListener("change", apply);
   }, [theme]);
 
-  const setTheme = (mode: ThemeMode) => setSetting('theme', mode);
+  const setTheme = (mode: ThemeMode) => setSetting("theme", mode);
 
   return { theme, setTheme, resolvedTheme: resolveTheme(theme) };
 }

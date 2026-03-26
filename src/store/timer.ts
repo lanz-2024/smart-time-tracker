@@ -1,5 +1,5 @@
-import { create } from 'zustand';
-import type { TimerState } from '../types';
+import { create } from "zustand";
+import type { TimerState } from "../types";
 
 interface TimerStore {
   state: TimerState;
@@ -8,7 +8,7 @@ interface TimerStore {
 }
 
 const initialState: TimerState = {
-  status: 'idle',
+  status: "idle",
   projectId: undefined,
   taskId: undefined,
   startedAt: undefined,
@@ -20,8 +20,7 @@ export const useTimerStore = create<TimerStore>((set) => ({
   state: initialState,
   setState: (updater) =>
     set((store) => ({
-      state:
-        typeof updater === 'function' ? updater(store.state) : updater,
+      state: typeof updater === "function" ? updater(store.state) : updater,
     })),
   reset: () => set({ state: initialState }),
 }));

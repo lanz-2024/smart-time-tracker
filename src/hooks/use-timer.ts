@@ -1,8 +1,8 @@
-import { invoke } from '@tauri-apps/api/core';
-import { useCallback } from 'react';
-import { useTimerStore } from '../store/timer';
-import { useTimeLog } from './use-time-log';
-import type { TimerState, TimeEntry } from '../types';
+import { invoke } from "@tauri-apps/api/core";
+import { useCallback } from "react";
+import { useTimerStore } from "../store/timer";
+import { useTimeLog } from "./use-time-log";
+import type { TimerState, TimeEntry } from "../types";
 
 export function useTimer() {
   const { state, setState } = useTimerStore();
@@ -11,9 +11,9 @@ export function useTimer() {
   const start = useCallback(
     async (projectId: string, taskId?: string) => {
       const startedAt = new Date().toISOString();
-      await invoke('start_timer', { projectId, taskId, startedAt });
+      await invoke("start_timer", { projectId, taskId, startedAt });
       setState({
-        status: 'running',
+        status: "running",
         projectId,
         taskId,
         startedAt,
@@ -25,11 +25,11 @@ export function useTimer() {
   );
 
   const pause = useCallback(async () => {
-    const elapsed = await invoke<number>('get_elapsed_seconds');
-    await invoke('pause_timer');
+    const elapsed = await invoke<number>("get_elapsed_seconds");
+    await invoke("pause_timer");
     setState((prev: TimerState) => ({
       ...prev,
-      status: 'paused',
+      status: "paused",
       pausedAt: new Date().toISOString(),
       accumulatedSeconds: prev.accumulatedSeconds + elapsed,
     }));
@@ -37,19 +37,19 @@ export function useTimer() {
 
   const resume = useCallback(async () => {
     const resumedAt = new Date().toISOString();
-    await invoke('resume_timer', { resumedAt });
+    await invoke("resume_timer", { resumedAt });
     setState((prev: TimerState) => ({
       ...prev,
-      status: 'running',
+      status: "running",
       startedAt: resumedAt,
       pausedAt: undefined,
     }));
   }, [setState]);
 
   const stop = useCallback(async () => {
-    const entry = await invoke<TimeEntry>('stop_timer');
+    const entry = await invoke<TimeEntry>("stop_timer");
     await addEntry(entry);
-    setState({ status: 'idle', accumulatedSeconds: 0 });
+    setState({ status: "idle", accumulatedSeconds: 0 });
   }, [setState, addEntry]);
 
   return { state, start, pause, resume, stop };

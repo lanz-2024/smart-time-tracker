@@ -38,7 +38,7 @@ pub fn get_activity_state() -> ActivityState {
         .processes()
         .values()
         .filter(|p| p.cpu_usage() > 5.0)
-        .map(|p| p.name().to_string_lossy().to_string())
+        .map(|p| p.name().to_string())
         .collect();
 
     ActivityState {
@@ -59,7 +59,7 @@ pub fn get_running_processes() -> Vec<ProcessInfo> {
         .values()
         .filter(|p| p.cpu_usage() > 0.1)
         .map(|p| ProcessInfo {
-            name: p.name().to_string_lossy().to_string(),
+            name: p.name().to_string(),
             cpu_usage: p.cpu_usage(),
             memory_mb: p.memory() / 1024 / 1024,
         })

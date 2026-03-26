@@ -1,20 +1,22 @@
-import { useEffect, useRef, useState } from 'react';
-import { useTimer } from '../hooks/use-timer';
-import { useProjects } from '../hooks/use-projects';
-import { formatTimerDisplay } from '../utils/duration';
-import { TaskSelector } from './TaskSelector';
+import { useEffect, useRef, useState } from "react";
+import { useTimer } from "../hooks/use-timer";
+import { useProjects } from "../hooks/use-projects";
+import { formatTimerDisplay } from "../utils/duration";
+import { TaskSelector } from "./TaskSelector";
 
 export function TrackerCard() {
   const { state, start, pause, resume, stop } = useTimer();
   const { projects, selectedProjectId, selectedTaskId } = useProjects();
-  const [displaySeconds, setDisplaySeconds] = useState(state.accumulatedSeconds);
+  const [displaySeconds, setDisplaySeconds] = useState(
+    state.accumulatedSeconds,
+  );
   const tickRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const selectedProject = projects.find((p) => p.id === selectedProjectId);
 
   // Real-time tick when running
   useEffect(() => {
-    if (state.status === 'running' && state.startedAt) {
+    if (state.status === "running" && state.startedAt) {
       const computeElapsed = () => {
         const base = state.accumulatedSeconds;
         const started = new Date(state.startedAt!).getTime();
@@ -34,7 +36,7 @@ export function TrackerCard() {
 
   const handleStart = async () => {
     if (!selectedProjectId) return;
-    if (state.status === 'paused') {
+    if (state.status === "paused") {
       await resume();
     } else {
       await start(selectedProjectId, selectedTaskId ?? undefined);
@@ -45,9 +47,9 @@ export function TrackerCard() {
     await stop();
   };
 
-  const isRunning = state.status === 'running';
-  const isPaused = state.status === 'paused';
-  const isIdle = state.status === 'idle';
+  const isRunning = state.status === "running";
+  const isPaused = state.status === "paused";
+  const isIdle = state.status === "idle";
   const canStart = selectedProjectId !== null;
 
   return (
@@ -91,11 +93,11 @@ export function TrackerCard() {
         <div className="flex items-center gap-2">
           <span
             className={`w-2 h-2 rounded-full ${
-              isRunning ? 'bg-green-500 animate-pulse' : 'bg-yellow-500'
+              isRunning ? "bg-green-500 animate-pulse" : "bg-yellow-500"
             }`}
           />
           <span className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide font-medium">
-            {isRunning ? 'Recording' : 'Paused'}
+            {isRunning ? "Recording" : "Paused"}
           </span>
         </div>
       )}

@@ -1,8 +1,8 @@
-import { useCallback, useEffect } from 'react';
-import { useSettingsStore } from '../store/settings';
-import type { AppSettings } from '../types';
+import { useCallback, useEffect } from "react";
+import { useSettingsStore } from "../store/settings";
+import type { AppSettings } from "../types";
 
-const STORAGE_KEY = 'stt:settings';
+const STORAGE_KEY = "stt:settings";
 
 /**
  * Read/write app preferences with localStorage persistence.
