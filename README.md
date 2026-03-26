@@ -31,11 +31,11 @@ graph TD
 ## Quick Start
 
 ```bash
-# Prerequisites: Rust toolchain + Node 22 + pnpm
+# Prerequisites: Rust toolchain + Node 22
 git clone https://github.com/lanz-2024/smart-time-tracker
 cd smart-time-tracker
-pnpm install
-pnpm tauri dev        # starts desktop app with HMR
+npm install
+npm run tauri:dev     # starts desktop app with HMR
 ```
 
 ## Tech Stack
@@ -102,8 +102,8 @@ pub struct ActivityDebouncer {
 ## Testing
 
 ```bash
-pnpm test           # Vitest frontend tests
-pnpm test:ci        # Headless + coverage
+npm test            # Vitest frontend tests
+npm run test:ci     # Headless + coverage
 cargo test          # Rust unit tests (debounce FSM, timer, export)
 cargo clippy        # Rust linting
 ```
@@ -117,7 +117,7 @@ cargo clippy        # Rust linting
 | Windows | x86_64-pc-windows-msvc | .msi + .exe |
 
 ```bash
-pnpm tauri build    # builds for current platform
+npm run tauri:build    # builds for current platform
 ```
 
 ## CI/CD
