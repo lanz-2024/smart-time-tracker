@@ -1,9 +1,15 @@
-import { useState } from 'react';
-import { useProjects } from '../hooks/use-projects';
+import { useState } from "react";
+import { useProjects } from "../hooks/use-projects";
 
 export function TaskSelector() {
-  const { projects, selectedProjectId, selectedTaskId, selectTask, createTask } = useProjects();
-  const [newTaskName, setNewTaskName] = useState('');
+  const {
+    projects,
+    selectedProjectId,
+    selectedTaskId,
+    selectTask,
+    createTask,
+  } = useProjects();
+  const [newTaskName, setNewTaskName] = useState("");
   const [showInput, setShowInput] = useState(false);
 
   const project = projects.find((p) => p.id === selectedProjectId);
@@ -11,10 +17,10 @@ export function TaskSelector() {
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const val = e.target.value;
-    if (val === '__new__') {
+    if (val === "__new__") {
       setShowInput(true);
     } else {
-      selectTask(val === '' ? null : val);
+      selectTask(val === "" ? null : val);
     }
   };
 
@@ -24,7 +30,7 @@ export function TaskSelector() {
     if (!trimmed || !selectedProjectId) return;
     const task = createTask(selectedProjectId, trimmed);
     selectTask(task.id);
-    setNewTaskName('');
+    setNewTaskName("");
     setShowInput(false);
   };
 
@@ -40,7 +46,7 @@ export function TaskSelector() {
       {!showInput ? (
         <select
           id="task-select"
-          value={selectedTaskId ?? ''}
+          value={selectedTaskId ?? ""}
           onChange={handleSelectChange}
           className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer"
         >
@@ -74,7 +80,7 @@ export function TaskSelector() {
             type="button"
             onClick={() => {
               setShowInput(false);
-              setNewTaskName('');
+              setNewTaskName("");
             }}
             className="px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
           >

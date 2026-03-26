@@ -27,7 +27,7 @@ export interface TimeEntry {
 }
 
 export interface TimerState {
-  status: 'idle' | 'running' | 'paused';
+  status: "idle" | "running" | "paused";
   projectId?: string;
   taskId?: string;
   startedAt?: string;
@@ -43,7 +43,7 @@ export interface ActivityState {
 }
 
 export interface AppSettings {
-  theme: 'light' | 'dark' | 'system';
+  theme: "light" | "dark" | "system";
   idleThresholdMinutes: number; // auto-pause after this many idle minutes
   globalShortcut: string; // e.g. "CmdOrCtrl+Shift+T"
   minimizeToTray: boolean;
@@ -52,10 +52,10 @@ export interface AppSettings {
   notificationsEnabled: boolean;
 }
 
-export type ThemeMode = AppSettings['theme'];
+export type ThemeMode = AppSettings["theme"];
 
 export interface ExportOptions {
-  format: 'csv' | 'json';
+  format: "csv" | "json";
   dateFrom?: string;
   dateTo?: string;
   projectIds?: string[];

@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { useProjects } from '../hooks/use-projects';
-import { useTimeLog } from '../hooks/use-time-log';
-import { formatDuration } from '../utils/duration';
+import { useState } from "react";
+import { useProjects } from "../hooks/use-projects";
+import { useTimeLog } from "../hooks/use-time-log";
+import { formatDuration } from "../utils/duration";
 
 interface NewProjectFormProps {
   onSubmit: (name: string, description?: string) => void;
@@ -9,8 +9,8 @@ interface NewProjectFormProps {
 }
 
 function NewProjectForm({ onSubmit, onCancel }: NewProjectFormProps) {
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -62,8 +62,13 @@ function NewProjectForm({ onSubmit, onCancel }: NewProjectFormProps) {
 }
 
 export function ProjectList() {
-  const { projects, selectedProjectId, selectProject, createProject, deleteProject } =
-    useProjects();
+  const {
+    projects,
+    selectedProjectId,
+    selectProject,
+    createProject,
+    deleteProject,
+  } = useProjects();
   const { getEntriesForProject } = useTimeLog();
   const [showForm, setShowForm] = useState(false);
 
@@ -92,11 +97,17 @@ export function ProjectList() {
 
       {showForm && (
         <div className="px-3 pb-2">
-          <NewProjectForm onSubmit={handleCreate} onCancel={() => setShowForm(false)} />
+          <NewProjectForm
+            onSubmit={handleCreate}
+            onCancel={() => setShowForm(false)}
+          />
         </div>
       )}
 
-      <nav className="flex-1 overflow-y-auto px-2 pb-4" aria-label="Project list">
+      <nav
+        className="flex-1 overflow-y-auto px-2 pb-4"
+        aria-label="Project list"
+      >
         {projects.length === 0 && !showForm && (
           <p className="px-2 py-4 text-xs text-gray-400 dark:text-gray-600 text-center">
             No projects yet.
@@ -108,7 +119,10 @@ export function ProjectList() {
         {projects.map((project) => {
           const isActive = project.id === selectedProjectId;
           const projectEntries = getEntriesForProject(project.id);
-          const totalDuration = projectEntries.reduce((sum, e) => sum + e.duration, 0);
+          const totalDuration = projectEntries.reduce(
+            (sum, e) => sum + e.duration,
+            0,
+          );
 
           return (
             <div key={project.id} className="group relative">
@@ -117,20 +131,23 @@ export function ProjectList() {
                 onClick={() => selectProject(isActive ? null : project.id)}
                 className={`w-full text-left px-3 py-2.5 rounded-lg mb-1 flex items-start gap-2.5 transition-colors ${
                   isActive
-                    ? 'bg-indigo-100 dark:bg-indigo-950 text-indigo-900 dark:text-indigo-100'
-                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-900'
+                    ? "bg-indigo-100 dark:bg-indigo-950 text-indigo-900 dark:text-indigo-100"
+                    : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-900"
                 }`}
-                aria-current={isActive ? 'true' : undefined}
+                aria-current={isActive ? "true" : undefined}
               >
                 <span
                   className="w-2.5 h-2.5 rounded-full mt-1 flex-shrink-0"
                   style={{ backgroundColor: project.color }}
                 />
                 <div className="flex-1 min-w-0">
-                  <div className="text-sm font-medium truncate">{project.name}</div>
+                  <div className="text-sm font-medium truncate">
+                    {project.name}
+                  </div>
                   <div className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">
-                    {project.tasks.length} task{project.tasks.length !== 1 ? 's' : ''} &middot;{' '}
-                    {totalDuration > 0 ? formatDuration(totalDuration) : '0s'}
+                    {project.tasks.length} task
+                    {project.tasks.length !== 1 ? "s" : ""} &middot;{" "}
+                    {totalDuration > 0 ? formatDuration(totalDuration) : "0s"}
                   </div>
                 </div>
                 {isActive && (
