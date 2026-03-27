@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react';
 
 interface UseKeyboardShortcutOptions {
   /** e.g. "CmdOrCtrl+Shift+T" — the display format from AppSettings */
@@ -26,19 +26,17 @@ export function useKeyboardShortcut({
   useEffect(() => {
     if (!enabled) return;
 
-    const parts = shortcut.split("+").map((p) => p.trim().toLowerCase());
-    const key = parts[parts.length - 1] ?? "";
-    const needsCtrl = parts.includes("ctrl") || parts.includes("cmdorctrl");
-    const needsMeta = parts.includes("cmd") || parts.includes("cmdorctrl");
-    const needsShift = parts.includes("shift");
-    const needsAlt = parts.includes("alt");
+    const parts = shortcut.split('+').map((p) => p.trim().toLowerCase());
+    const key = parts[parts.length - 1] ?? '';
+    const needsCtrl = parts.includes('ctrl') || parts.includes('cmdorctrl');
+    const needsMeta = parts.includes('cmd') || parts.includes('cmdorctrl');
+    const needsShift = parts.includes('shift');
+    const needsAlt = parts.includes('alt');
 
     const handler = (e: KeyboardEvent) => {
       const metaOrCtrl = needsCtrl ? e.ctrlKey : needsMeta ? e.metaKey : false;
       const modifierMatch =
-        (needsCtrl || needsMeta
-          ? metaOrCtrl || e.ctrlKey || e.metaKey
-          : true) &&
+        (needsCtrl || needsMeta ? metaOrCtrl || e.ctrlKey || e.metaKey : true) &&
         (needsShift ? e.shiftKey : !e.shiftKey || needsShift) &&
         (needsAlt ? e.altKey : !e.altKey);
 
@@ -48,7 +46,7 @@ export function useKeyboardShortcut({
       }
     };
 
-    window.addEventListener("keydown", handler);
-    return () => window.removeEventListener("keydown", handler);
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
   }, [shortcut, enabled]);
 }

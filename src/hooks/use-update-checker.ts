@@ -1,9 +1,8 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from 'react';
 
-const CURRENT_VERSION = "0.1.0";
+const CURRENT_VERSION = '0.1.0';
 const CHECK_INTERVAL_MS = 60 * 60 * 1000; // 1 hour
-const RELEASES_API =
-  "https://api.github.com/repos/lanz-2024/smart-time-tracker/releases/latest";
+const RELEASES_API = 'https://api.github.com/repos/lanz-2024/smart-time-tracker/releases/latest';
 
 interface UpdateInfo {
   version: string;
@@ -21,7 +20,7 @@ interface UseUpdateCheckerResult {
 }
 
 function semverGt(a: string, b: string): boolean {
-  const parse = (v: string) => v.replace(/^v/, "").split(".").map(Number);
+  const parse = (v: string) => v.replace(/^v/, '').split('.').map(Number);
   const [aMaj = 0, aMin = 0, aPatch = 0] = parse(a);
   const [bMaj = 0, bMin = 0, bPatch = 0] = parse(b);
   if (aMaj !== bMaj) return aMaj > bMaj;
@@ -40,7 +39,7 @@ export function useUpdateChecker(): UseUpdateCheckerResult {
     setError(null);
     try {
       const res = await fetch(RELEASES_API, {
-        headers: { Accept: "application/vnd.github+json" },
+        headers: { Accept: 'application/vnd.github+json' },
       });
       if (!res.ok) throw new Error(`GitHub API error: ${res.status}`);
       const data = (await res.json()) as {
@@ -49,13 +48,13 @@ export function useUpdateChecker(): UseUpdateCheckerResult {
         published_at: string;
       };
       setLatestVersion({
-        version: data.tag_name.replace(/^v/, ""),
+        version: data.tag_name.replace(/^v/, ''),
         releaseUrl: data.html_url,
         publishedAt: data.published_at,
       });
       setDismissed(false);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Update check failed");
+      setError(err instanceof Error ? err.message : 'Update check failed');
     } finally {
       setIsChecking(false);
     }
@@ -68,9 +67,7 @@ export function useUpdateChecker(): UseUpdateCheckerResult {
   }, [checkNow]);
 
   const hasUpdate =
-    !dismissed &&
-    latestVersion !== null &&
-    semverGt(latestVersion.version, CURRENT_VERSION);
+    !dismissed && latestVersion !== null && semverGt(latestVersion.version, CURRENT_VERSION);
 
   return {
     latestVersion,
