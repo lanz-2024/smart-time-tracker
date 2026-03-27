@@ -1,0 +1,16 @@
+# Docker Compose for smart-time-tracker frontend dev/test server.
+# Note: The Tauri desktop binary cannot run in Docker (native OS integration required).
+# This container runs the React frontend only — useful for CI and web preview.
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    command: npm run dev -- --host 0.0.0.0
