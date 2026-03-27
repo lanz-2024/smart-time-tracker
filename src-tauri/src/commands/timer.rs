@@ -108,10 +108,7 @@ pub fn pause_timer(state: State<'_, TimerStateWrapper>) -> Result<(), String> {
 }
 
 #[tauri::command]
-pub fn resume_timer(
-    resumed_at: String,
-    state: State<'_, TimerStateWrapper>,
-) -> Result<(), String> {
+pub fn resume_timer(resumed_at: String, state: State<'_, TimerStateWrapper>) -> Result<(), String> {
     let mut timer = state.0.lock().unwrap();
     if timer.status != TimerStatus::Paused {
         return Err("Timer is not paused".to_string());
@@ -137,9 +134,8 @@ pub fn stop_timer(state: State<'_, TimerStateWrapper>) -> Result<TimeEntry, Stri
         .or_else(|| {
             // If paused, reconstruct a plausible start_time (accumulated time ago)
             Some(
-                (Utc::now()
-                    - chrono::Duration::seconds(timer.accumulated_seconds as i64))
-                .to_rfc3339(),
+                (Utc::now() - chrono::Duration::seconds(timer.accumulated_seconds as i64))
+                    .to_rfc3339(),
             )
         })
         .unwrap_or_else(|| Utc::now().to_rfc3339());

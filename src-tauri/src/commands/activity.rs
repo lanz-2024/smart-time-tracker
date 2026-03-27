@@ -28,8 +28,7 @@ pub fn get_activity_state() -> ActivityState {
     sys.refresh_all();
 
     let cpu_count = sys.cpus().len().max(1) as f32;
-    let total_cpu: f32 =
-        sys.cpus().iter().map(|c| c.cpu_usage()).sum::<f32>() / cpu_count;
+    let total_cpu: f32 = sys.cpus().iter().map(|c| c.cpu_usage()).sum::<f32>() / cpu_count;
 
     let is_active = total_cpu > 10.0;
     let now = Utc::now().to_rfc3339();
