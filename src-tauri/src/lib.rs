@@ -1,5 +1,3 @@
-use tauri::Manager;
-
 mod commands;
 mod monitor;
 mod store;

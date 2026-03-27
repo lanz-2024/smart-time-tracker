@@ -18,8 +18,7 @@ pub async fn check_for_updates() -> Result<UpdateInfo, String> {
 
     match response {
         Ok(resp) if resp.status().is_success() => {
-            let release: serde_json::Value =
-                resp.json().await.map_err(|e| e.to_string())?;
+            let release: serde_json::Value = resp.json().await.map_err(|e| e.to_string())?;
             let latest_version = release["tag_name"]
                 .as_str()
                 .unwrap_or("v0.0.0")
