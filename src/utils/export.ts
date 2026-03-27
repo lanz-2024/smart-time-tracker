@@ -1,7 +1,7 @@
-import type { TimeEntry, Project, ExportOptions } from "../types";
+import type { ExportOptions, Project, TimeEntry } from '../types';
 
 function escapeCsvField(value: string): string {
-  if (value.includes(",") || value.includes('"') || value.includes("\n")) {
+  if (value.includes(',') || value.includes('"') || value.includes('\n')) {
     return `"${value.replace(/"/g, '""')}"`;
   }
   return value;
@@ -9,20 +9,18 @@ function escapeCsvField(value: string): string {
 
 export function exportToCsv(entries: TimeEntry[], projects: Project[]): string {
   const projectMap = new Map(projects.map((p) => [p.id, p]));
-  const taskMap = new Map(
-    projects.flatMap((p) => p.tasks.map((t) => [t.id, t])),
-  );
+  const taskMap = new Map(projects.flatMap((p) => p.tasks.map((t) => [t.id, t])));
 
   const headers = [
-    "ID",
-    "Project",
-    "Task",
-    "Start Time",
-    "End Time",
-    "Duration (seconds)",
-    "Notes",
-    "Tags",
-    "Auto Logged",
+    'ID',
+    'Project',
+    'Task',
+    'Start Time',
+    'End Time',
+    'Duration (seconds)',
+    'Notes',
+    'Tags',
+    'Auto Logged',
   ];
 
   const rows = entries.map((entry) => {
@@ -31,29 +29,24 @@ export function exportToCsv(entries: TimeEntry[], projects: Project[]): string {
     return [
       entry.id,
       project?.name ?? entry.projectId,
-      task?.name ?? "",
+      task?.name ?? '',
       entry.startTime,
-      entry.endTime ?? "",
+      entry.endTime ?? '',
       entry.duration.toString(),
-      entry.notes ?? "",
-      entry.tags.join(";"),
-      entry.autoLogged ? "yes" : "no",
+      entry.notes ?? '',
+      entry.tags.join(';'),
+      entry.autoLogged ? 'yes' : 'no',
     ]
       .map(escapeCsvField)
-      .join(",");
+      .join(',');
   });
 
-  return [headers.join(","), ...rows].join("\n");
+  return [headers.join(','), ...rows].join('\n');
 }
 
-export function exportToJson(
-  entries: TimeEntry[],
-  projects: Project[],
-): string {
+export function exportToJson(entries: TimeEntry[], projects: Project[]): string {
   const projectMap = new Map(projects.map((p) => [p.id, p]));
-  const taskMap = new Map(
-    projects.flatMap((p) => p.tasks.map((t) => [t.id, t])),
-  );
+  const taskMap = new Map(projects.flatMap((p) => p.tasks.map((t) => [t.id, t])));
 
   const enriched = entries.map((entry) => ({
     ...entry,
@@ -64,27 +57,19 @@ export function exportToJson(
   return JSON.stringify(enriched, null, 2);
 }
 
-export function filterEntries(
-  entries: TimeEntry[],
-  options: ExportOptions,
-): TimeEntry[] {
+export function filterEntries(entries: TimeEntry[], options: ExportOptions): TimeEntry[] {
   return entries.filter((entry) => {
     if (options.dateFrom && entry.startTime < options.dateFrom) return false;
     if (options.dateTo && entry.startTime > options.dateTo) return false;
-    if (options.projectIds && !options.projectIds.includes(entry.projectId))
-      return false;
+    if (options.projectIds && !options.projectIds.includes(entry.projectId)) return false;
     return true;
   });
 }
 
-export function downloadFile(
-  content: string,
-  filename: string,
-  mimeType: string,
-): void {
+export function downloadFile(content: string, filename: string, mimeType: string): void {
   const blob = new Blob([content], { type: mimeType });
   const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
+  const a = document.createElement('a');
   a.href = url;
   a.download = filename;
   a.click();

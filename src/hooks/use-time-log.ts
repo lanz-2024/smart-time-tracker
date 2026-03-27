@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useState } from "react";
-import type { TimeEntry } from "../types";
+import { useCallback, useEffect, useState } from 'react';
+import type { TimeEntry } from '../types';
 
-const STORAGE_KEY = "stt:time-entries";
+const STORAGE_KEY = 'stt:time-entries';
 
 export function useTimeLog() {
   const [entries, setEntries] = useState<TimeEntry[]>([]);

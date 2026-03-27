@@ -1,5 +1,5 @@
-import { create } from "zustand";
-import type { AppSettings } from "../types";
+import { create } from 'zustand';
+import type { AppSettings } from '../types';
 
 interface SettingsStore {
   settings: AppSettings;
@@ -8,9 +8,9 @@ interface SettingsStore {
 }
 
 export const defaultSettings: AppSettings = {
-  theme: "system",
+  theme: 'system',
   idleThresholdMinutes: 5,
-  globalShortcut: "CmdOrCtrl+Shift+T",
+  globalShortcut: 'CmdOrCtrl+Shift+T',
   minimizeToTray: true,
   showCompactMode: false,
   autoStartOnLogin: false,

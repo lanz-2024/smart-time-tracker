@@ -1,6 +1,6 @@
-import { invoke } from "@tauri-apps/api/core";
-import { useEffect, useRef, useState } from "react";
-import type { ActivityState } from "../types";
+import { invoke } from '@tauri-apps/api/core';
+import { useEffect, useRef, useState } from 'react';
+import type { ActivityState } from '../types';
 
 const POLL_INTERVAL_MS = 5000;
 
@@ -22,15 +22,14 @@ export function useActivityMonitor({
   onResume,
   idleThresholdSeconds = 300,
 }: UseActivityMonitorOptions = {}) {
-  const [activityState, setActivityState] =
-    useState<ActivityState>(defaultActivityState);
+  const [activityState, setActivityState] = useState<ActivityState>(defaultActivityState);
   const wasIdleRef = useRef(false);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
     const poll = async () => {
       try {
-        const state = await invoke<ActivityState>("get_activity_state");
+        const state = await invoke<ActivityState>('get_activity_state');
         setActivityState(state);
 
         const isNowIdle = state.idleSeconds >= idleThresholdSeconds;

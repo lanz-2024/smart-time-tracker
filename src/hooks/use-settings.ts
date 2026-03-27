@@ -1,8 +1,8 @@
-import { useCallback, useEffect } from "react";
-import { useSettingsStore } from "../store/settings";
-import type { AppSettings } from "../types";
+import { useCallback, useEffect } from 'react';
+import { useSettingsStore } from '../store/settings';
+import type { AppSettings } from '../types';
 
-const STORAGE_KEY = "stt:settings";
+const STORAGE_KEY = 'stt:settings';
 
 /**
  * Read/write app preferences with localStorage persistence.
@@ -13,6 +13,7 @@ export function useSettings() {
   const { settings, updateSettings, resetSettings } = useSettingsStore();
 
   // Hydrate from storage once on mount
+  // biome-ignore lint/correctness/useExhaustiveDependencies: intentional mount-only effect
   useEffect(() => {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return;
@@ -22,7 +23,6 @@ export function useSettings() {
     } catch {
       // Ignore corrupt data
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Persist on every change
